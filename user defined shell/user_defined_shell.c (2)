@@ -1,0 +1,353 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include<string.h>
+#include<sys/types.h>
+#include<errno.h>
+#include<sys/wait.h>
+#include<sys/stat.h>
+#include<fcntl.h>
+#include<signal.h>
+
+typedef struct store{
+	int status;
+	int pidnum;
+	char process[100];
+	char bg_process[100];
+}store;
+store stack[1000];
+int var=0,var1=0,var2=0,var3=0;
+
+int t=0;
+pid_t fg_pid;
+int convert(char *s){
+	char *t=&s[4];
+	int tt=atoi(t);
+	return tt;
+}
+void child_handler(int signum){
+	int pid,j;
+	pid = waitpid(WAIT_ANY, NULL, WNOHANG);
+	for(j=0;j<var;j++){
+	if(stack[j].pidnum==pid){
+		var3=j;
+		stack[var3].status=0;
+	}
+	}
+	if(pid>0)
+	{   
+		printf("\n%s %d exited normally\n",stack[var3++].bg_process,pid);
+		t=1;
+	}   
+	fflush(stdout);
+	signal(SIGCHLD, child_handler);
+	return;
+}
+
+void sig_handler(int signum){
+	if(signum == 2 || signum == 20)t=1;
+	signal(SIGINT, sig_handler);
+	signal(SIGTSTP, sig_handler);
+	return;
+}
+
+void execute_only_pipes(char*);
+int main(int argc, char *argv[], char *envp[])
+{
+	signal(SIGINT, sig_handler);
+	signal(SIGTSTP, sig_handler);
+//	signal(SIGCHLD,SIG_IGN);
+//	signal(SIGCHLD, child_handler);
+
+
+	char c = '\0';
+	int i=0,a=10,j,k,ans,ff=0,flag1=0;
+	pid_t pid1,pid;
+	char s[100];
+	char *user;
+	user=getlogin();
+	char sys[1023];
+	char *dir;
+	char *home;
+	char *now=(char*)malloc(sizeof(char)*100);
+	char *pointer[100];
+	//	char path[]="~";
+	char array[100][100];
+	int pid_array[100];
+	gethostname(sys,1023);
+	home=get_current_dir_name();
+	printf("\n<%s@%s:~> ",user,sys);
+	s[0]='\0';
+	int flag=0;
+	while(c != EOF) {
+		if(flag!=1)
+			c = getchar();
+		if(flag==1){
+			s[0]='\0';
+			strcpy(s,array[ans-1]);
+			ff=0;
+			*pointer=(char*)NULL;
+		}
+		if(t==1){
+			printf("\n<%s@%s:~%s> ",user,sys,now);
+			t=0;
+		//	c='\n';s[0]='\0';}
+			continue;}
+			char f[100],g[100];
+			f[0]='\0';
+			g[0]='\0';
+			if((c == '\n'&& s[0]!='\0') || flag==1){
+				char t1[100],tmp;
+				strcpy(t1,s);
+				
+
+				strcpy(array[i++],t1);
+				strncat(f,&s,4);
+				strncat(g,&s,5);
+				char *result=NULL;
+				char *r2=NULL;
+				char *r=NULL;
+				r2=strtok(s," 	");
+				while(r2!=NULL){
+					pointer[ff++]=r2;
+					r2=strtok(NULL," 	");
+				}
+				result=pointer[0];
+				r=pointer[1];
+				pointer[ff]=(char *)NULL;
+				if(strcmp(result,"quit")==0){
+					exit(0);}
+				if(strcmp(result,"cd")==0){
+					ff=0;
+					//	pid=fork();
+					if(pointer[1]==(char*)NULL){
+						chdir(home);
+						now=&home[strlen(home)];}
+					else if(pointer[1]!=(char*)NULL){
+						//	dir[0]='\0';
+						a=chdir(pointer[1]);
+						if(a<0)printf("No such file or directory\n");
+						dir=get_current_dir_name();
+						now=&dir[strlen(home)];}
+				}
+				else if(strcmp(result,"pid")==0 && pointer[1]==NULL){
+					printf("command name: %s  process id: %d\n",argv[0],getpid());
+					ff=0;
+				}
+		//		else if(strcmp(result,"pid")==0 && strcmp(pointer[1],"current")==0){
+		//			k=var1;
+		//			printf("%d\n",k);
+		//			for(j=0;j<k;j++){
+		//				if(stack[j].status==1)
+		//					printf("command name: %s process pid: %d\n",stack[j].bg_process,stack[j].pidnum);
+		//			}
+		//		}
+				else if(strcmp(result,"pid")==0 && strcmp(pointer[1],"all")==0){
+					k=var;
+					for(j=0;j<k;j++)
+						printf("command name: %s process pid: %d\n",stack[j].process,stack[j].pidnum);
+				}
+
+
+				else if(strcmp(result,"hist")==0 && pointer[1]==NULL){
+					k=i;
+					for(i=0;i<k;i++)
+						printf("%d. %s\n",i+1,array[i]);
+				}
+				else if(strcmp(f,"hist")==0){
+					if(pointer[1]!=NULL)printf("Command not exists!\n");
+					else{
+					ans=convert(result);
+					if(ans>k-1 || ans<1)printf("Number is not in the range!\n");
+					else{
+					k=i;
+					ans=k-ans;
+					for(j=ans;j<k;j++)
+						printf("%d. %s\n",j-ans+1,array[j]);
+					}
+					}
+				}
+				else if(strcmp(g,"!hist")==0 && pointer[1]==NULL){
+					char *r;
+					k=i;
+					r=strstr(result,"hist");
+					ans=convert(r);
+					if(ans>k-1)printf("command does not exist!\n");
+					else{flag=1;
+					continue;}
+				}
+				else if(pointer[1]!=NULL && strcmp(pointer[1],"&")==0){
+					pid=fork();
+					char st[]="/usr/bin/";
+					strcat(st,result);
+					int p=getpid();
+					if(pid==0){
+						if(execlp(st, result, NULL)<1)
+							printf("Command not found!\n");
+					}
+					else{
+						stack[var].pidnum=pid;
+						strcpy(stack[var].process,pointer[0]);
+						strcpy(stack[var++].bg_process,pointer[0]);
+						stack[var2++].status=1;
+						printf("command name: %s process id: %d\n",result,pid);
+					}
+					*pointer=(char *)NULL;
+					ff=0;
+				}
+				else{
+					stack[var2++].status=0;
+					execute_only_pipes(&t1[0]);
+					*pointer=(char *)NULL;
+					ff=0;
+				}
+
+				if(flag1!=1)
+					{	printf("\n<%s@%s:~%s> ",user,sys,now);}
+				else flag1=0;
+
+				s[0]='\0';
+			}
+			else if(c=='\n' && s[0]=='\0')printf("\n<%s@%s:~%s> ",user,sys,now);
+			else
+				strncat(s,&c,1);
+
+			flag=0;
+			ff=0;
+			*pointer=(char*)NULL;
+	}
+	return 0;
+}
+void execute_only_pipes(char* buffer)
+{
+	char *temp = NULL, *input_file = NULL, *output_file = NULL, *pipeCommands[100], *cmdArgs[10],swap_string[1000];
+	int newPipe[2], oldPipe[2], pipesCount, aCount, i, status,in,out,bak,bak1,res;
+	pid_t pid;
+
+	pipesCount = 0; /* This variable will contain how many pipes the command contains */
+
+	/* Counting the number of pipes and splitting them into pipeCommands */
+	temp = strtok(buffer,"|");
+	while(temp!=NULL) 
+	{
+		pipeCommands[pipesCount++] = temp;
+		temp = strtok(NULL, "|");
+	}
+	pipeCommands[pipesCount] = (char*)NULL;
+
+	//	cmdArgs[++pipesCount] = NULL;
+
+	for(i = 0; i < pipesCount; i++)  
+	{
+		char a,b;
+		temp=NULL;
+		input_file=NULL;
+		aCount = 0;
+		a='\n';b='\n';
+		swap_string[0]='\0';
+		strcpy(swap_string,pipeCommands[i]);
+		temp=strtok(pipeCommands[i]," ");
+		while(temp!=NULL) 
+		{
+			if(strcmp(temp,"<")==0) {
+				temp = strtok(NULL," ");
+				fflush(stdin);
+				bak1=dup(0);
+				//	close(1);
+				in = open(temp,O_RDONLY ,S_IRWXU);
+				if(in<0){printf("File does not exists\n");return;}
+				dup2(in,0);
+				close(in);
+			}
+			else if(strcmp(temp,">")==0) {
+				temp = strtok(NULL," ");
+				fflush(stdout);
+				bak=dup(1);
+				out = open(temp, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				dup2(out,1);
+				close(out);
+			}
+			else cmdArgs[aCount++] = temp;
+			temp = strtok(NULL, " ");
+		} 
+
+		cmdArgs[aCount] = (char*)NULL;
+
+		/* If there still are commands to be executed */
+		if(i < pipesCount-1) 
+		{
+			pipe(newPipe); //create a pipe 
+		}
+
+		pid = fork();
+
+		if(pid == 0)  /* Child */
+		{
+			/* If it is not the first command */
+			if(i > 0)
+			{
+				close(oldPipe[1]);
+				dup2(oldPipe[0], 0);
+				close(oldPipe[0]);
+			}
+
+			/* If it is not the last command */
+			if(i < pipesCount-1) 
+			{
+				close(newPipe[0]);
+				dup2(newPipe[1], 1);
+				close(newPipe[1]);
+			}
+
+			/* Execution */
+			/*		if(a=='<'){
+					in = open(input_file,O_RDONLY);
+					dup2(in,0);
+					}
+					if(b=='>'){
+					out = open(output_file, O_WRONLY | O_CREAT);
+					dup2(out,1);
+					}*/
+
+			res = execvp(cmdArgs[0], cmdArgs);
+			if (res == -1 || in<0)
+			{
+				printf("Error. Command not found: %s\n", cmdArgs[0]);
+			exit(1);
+			}
+		} 
+		else /* Father */
+		{
+	//		fflush(stdout);
+	//		dup2(bak,1);
+	//		close(bak);
+		//	printf("command=%s pid in func=%d\n",cmdArgs[0],pid);
+
+			/* If there is a previous command */
+			if(i > 0) 
+			{
+				close(oldPipe[0]);
+				close(oldPipe[1]);
+			}
+
+			/* do we have a next command? */
+			if(i < pipesCount-1) 
+			{
+				oldPipe[0] = newPipe[0];
+				oldPipe[1] = newPipe[1];
+			}
+			if(i == pipesCount-1) 
+			{
+				waitpid(pid, &status, 0);
+			}
+			fflush(stdin);
+			dup2(bak1,0);
+			fflush(stdout);
+			dup2(bak,1);
+			if(res!=-1){
+			stack[var].pidnum=pid;
+			strcpy(stack[var++].process,swap_string);}
+		}
+	}
+}
+
