@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>ITWS-ASSIGNMENT 4</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="27/04/2012"/>
+<meta name="author" content="PANKHURI GOYAL"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">ITWS-ASSIGNMENT 4</h1>
+
+<p>-ROLL NUMBER :: 201101174
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 CODE ORGANISATION </a>
+<ul>
+<li><a href="#sec-1.1">1.1 Modules used </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 CLASS DECOMPOSITION </a></li>
+<li><a href="#sec-3">3 ADVANTAGES </a></li>
+<li><a href="#sec-4">4 MISCELLANEOUS </a></li>
+<li><a href="#sec-5">5 EXTRA FEATURES </a></li>
+<li><a href="#sec-6">6 LINK TO CODE </a></li>
+<li><a href="#sec-7">7 LINK TO SCREENSHOTS </a>
+<ul>
+<li><a href="#sec-7.1">7.1 link to screenshot 1 </a></li>
+<li><a href="#sec-7.2">7.2 link to screenshot 2 </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> CODE ORGANISATION </h2>
+<div class="outline-text-2" id="text-1">
+
+<p>I used 5 modules in my code.
+</p>
+
+</div>
+
+<div id="outline-container-1.1" class="outline-3">
+<h3 id="sec-1.1"><span class="section-number-3">1.1</span> Modules used </h3>
+<div class="outline-text-3" id="text-1.1">
+
+
+<dl>
+<dt>put</dt><dd>
+to insert bomb and defuse codes randomly on the window
+</dd>
+<dt>moveRobot</dt><dd>
+to move the robot using the arrow keys which are given as input by the user
+</dd>
+<dt>escapeKey</dt><dd>
+to exit the game whenever user presses escape key
+</dd>
+<dt>enemy</dt><dd>
+to insert an enemy mine that kills the robot
+</dd>
+<dt>displayScore</dt><dd>
+displays the score when the user wins or looses the game
+
+</dd>
+</dl>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> CLASS DECOMPOSITION </h2>
+<div class="outline-text-2" id="text-2">
+
+<p>My code has one empty class.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> ADVANTAGES </h2>
+<div class="outline-text-2" id="text-3">
+
+<ul>
+<li>
+My class takes size of the window(F1 x F2),number of defuse codes(d),size of the robot(r x r) 
+and count of the defusecodes collected by the user(count) which when multiplyed by 10 gives
+the score at a level.
+</li>
+<li>
+The varibles can be modified easily in the class and are accessible throughout
+the code. Thus user can change size of the robot, screen size and can make the game look
+different.
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> MISCELLANEOUS </h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li>
+deleting the previous coordinates of the robot in the window.
+</li>
+<li>
+inserting the robot at the new coordinates as per the movement of the arrow keys
+</li>
+<li>
+exits the game if the robot hits the borders, enemy or the bomb(without collecting the 
+required number of defuse codes)
+</li>
+<li>
+psitions of the bimb, defuse codes and the enemy are randomly generated within the window
+</li>
+<li>
+if 'p' or 'P' is pressed then the game pauses and is resumed when toggled and exits when 'escape key' is pressed
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> EXTRA FEATURES </h2>
+<div class="outline-text-2" id="text-5">
+
+<ul>
+<li>
+the game has two levels
+</li>
+<li>
+there is an enemy mine in the second level which kills the robot
+</li>
+<li>
+colours are used to increase the appeal of the game
+</li>
+<li>
+after level one is completed, user gets a choice to play the next level or to quit
+</li>
+<li>
+user can play the next level even without clearing the previous one
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> LINK TO CODE </h2>
+<div class="outline-text-2" id="text-6">
+
+<p><a href="./201101174_robot.py">python code</a>
+</p></div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> LINK TO SCREENSHOTS </h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7.1" class="outline-3">
+<h3 id="sec-7.1"><span class="section-number-3">7.1</span> link to screenshot 1 </h3>
+<div class="outline-text-3" id="text-7.1">
+
+<p><a href="./screenshot1.png">Screenshot 1</a>
+</p></div>
+
+</div>
+
+<div id="outline-container-7.2" class="outline-3">
+<h3 id="sec-7.2"><span class="section-number-3">7.2</span> link to screenshot 2 </h3>
+<div class="outline-text-3" id="text-7.2">
+
+<p><a href="./screenshot2.png">Screenshot 2</a>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: PANKHURI GOYAL
+<a href="mailto:pankhuri@linuxmint.linuxmint-domain">&lt;pankhuri@linuxmint.linuxmint-domain&gt;</a>
+</p>
+<p class="date"> Date: 27/04/2012</p>
+<p class="creator">HTML generated by org-mode 6.33x in emacs 23</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+#+TITLE: ITWS-ASSIGNMENT 4
+#+DATE: 27/04/2012
+#+AUTHOR: PANKHURI GOYAL
+
+-ROLL NUMBER :: 201101174
+
+* CODE ORGANISATION
+  I used 5 modules in my code.
+
+** Modules used
+
+- put :: to insert bomb and defuse codes randomly on the window
+- moveRobot :: to move the robot using the arrow keys which are given as input by the user
+- escapeKey :: to exit the game whenever user presses escape key
+- enemy :: to insert an enemy mine that kills the robot
+- displayScore :: displays the score when the user wins or looses the game
+
+* CLASS DECOMPOSITION
+  My code has one empty class.
+
+* ADVANTAGES
+- My class takes size of the window(F1 x F2),number of defuse codes(d),size of the robot(r x r) 
+  and count of the defusecodes collected by the user(count) which when multiplyed by 10 gives
+  the score at a level.
+- The varibles can be modified easily in the class and are accessible throughout
+  the code. Thus user can change size of the robot, screen size and can make the game look
+  different.
+* MISCELLANEOUS
+- deleting the previous coordinates of the robot in the window.
+- inserting the robot at the new coordinates as per the movement of the arrow keys
+- exits the game if the robot hits the borders, enemy or the bomb(without collecting the 
+ required number of defuse codes)
+- psitions of the bimb, defuse codes and the enemy are randomly generated within the window
+- if 'p' or 'P' is pressed then the game pauses and is resumed when toggled and exits when 'escape key' is pressed
+ 
+* EXTRA FEATURES
+- the game has two levels
+- there is an enemy mine in the second level which kills the robot
+- colours are used to increase the appeal of the game
+- after level one is completed, user gets a choice to play the next level or to quit
+- user can play the next level even without clearing the previous one
+
+* LINK TO CODE
+  [[file:./201101174_robot.py][python code]]
+* LINK TO SCREENSHOTS
+** link to screenshot 1
+[[file:./screenshot1.png][Screenshot 1]]
+** link to screenshot 2
+[[file:./screenshot2.png][Screenshot 2]]
+
