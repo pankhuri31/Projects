@@ -1,0 +1,9 @@
+[global]
+fsid = 16908b05-112b-47c9-b26b-5d48e500ddd9
+mon_initial_members = pankhuri
+mon_host = 10.1.97.83
+auth_supported = cephx
+osd_journal_size = 1024
+filestore_xattr_use_omap = true
+osd_crush_chooseleaf_type = 0
+
