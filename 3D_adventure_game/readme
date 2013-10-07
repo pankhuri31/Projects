@@ -1,0 +1,18 @@
+About:
+The assignment is a game in which the player has to go from his current position to a destination, while avoiding obstacles. The world consists 
+of tiles surrounded by water. Some tiles are missing, some are moving in horizontal/vertical motion, some are fire tiles/teleporter (if the      player walks on any of these tiles, then he is transported back to his starting position).
+During this journey, his actions could be viewed from multiple positions, which is controllable from the keyboard keys.
+Player can collect coins and gets three lives if he accidentally falls in the pits.
+
+Movement Controls:
+Use up/down/right left arrow keys to move the player in the tile world.
+Use 'j' key to jump the player in the direction he is looking.
+
+Camera Controls:
+Use 'f' key to enter/exit first person view mode.
+Use 't' key to enter/exit third person's view mode.
+Use 'v' key to enter/exit tile view mode. Use 'a','d','w' and 's' keys to select the tiles.
+Use 'h' key to enter/exit helicopter view mode.
+
+Compile
+Type make and then run ./game
